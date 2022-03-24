@@ -9,6 +9,11 @@ use App\User\Domain\UserId;
 final class Comment
 {
     /**
+     * @var int
+     */
+    private int $commentId;
+
+    /**
      * @var string
      */
     private string $comment;
@@ -19,23 +24,26 @@ final class Comment
     private UserId $userId;
 
     /**
+     * @param int $commentId
      * @param string $comment
      * @param UserId $userId
      * @return static
      */
-    public static function from(string $comment, UserId $userId): self
+    public static function from(int $commentId, string $comment, UserId $userId): self
     {
-        return new self($comment, $userId);
+        return new self($commentId, $comment, $userId);
     }
 
     /**
+     * @param int $commentId
      * @param string $comment
      * @param UserId $userId
      */
-    private function __construct(string $comment, UserId $userId)
+    private function __construct(int $commentId, string $comment, UserId $userId)
     {
         $this->comment = $comment;
         $this->userId = $userId;
+        $this->commentId = $commentId;
     }
 
     /**
@@ -54,12 +62,26 @@ final class Comment
         return $this->userId;
     }
 
+    public function commentId(): int
+    {
+        return $this->commentId;
+    }
+
     /**
-     * @param Comment $comment
+     * @param Comment $currentComment
      * @return bool
      */
-    public function sameAs(Comment $comment): bool
+    public function same(Comment $currentComment): bool
     {
-        return $comment->comment === $this->comment && $this->userId->sameAs($comment->userId);
+        return $currentComment->commentId === $this->commentId;
+    }
+
+    /**
+     * @param int $commentId
+     * @return $this
+     */
+    public function withNewId(int $commentId): self
+    {
+        return new self($commentId, $this->comment, $this->userId);
     }
 }

@@ -10,56 +10,45 @@ use App\User\Domain\UserId;
 use App\EventSourcing\ShouldBeStored;
 use JetBrains\PhpStorm\ArrayShape;
 
-final class TodoAdded extends ShouldBeStored
+final class TodoUpdated extends ShouldBeStored
 {
     /**
      * @var TodoId
      */
-    private TodoId $todoId;
+    public TodoId $todoId;
 
     /**
      * @var TodoDescription
      */
-    private TodoDescription $todoDescription;
-
-    /**
-     * @var UserId
-     */
-    private UserId $userId;
+    public TodoDescription $todoDescription;
 
     /**
      * @param TodoId $todoId
      * @param TodoDescription $todoDescription
-     * @param UserId $userId
      * @return static
      */
     public static function createFrom(
         TodoId $todoId,
         TodoDescription $todoDescription,
-        UserId $userId
     ): self {
         return new self(
             $todoId,
             $todoDescription,
-            $userId
         );
     }
 
     /**
      * @param TodoId $todoId
      * @param TodoDescription $todoDescription
-     * @param UserId $userId
      * @param array|null $metadata
      */
     private function __construct(
         TodoId $todoId,
         TodoDescription $todoDescription,
-        UserId $userId,
         ?array $metadata = []
     ) {
         $this->todoId = $todoId;
         $this->todoDescription = $todoDescription;
-        $this->userId = $userId;
         $this->metaData = $metadata;
     }
 
@@ -79,13 +68,6 @@ final class TodoAdded extends ShouldBeStored
         return $this->todoDescription;
     }
 
-    /**
-     * @return UserId
-     */
-    public function userId(): UserId
-    {
-        return $this->userId;
-    }
 
     /**
      * @return string[]
@@ -94,13 +76,13 @@ final class TodoAdded extends ShouldBeStored
     {
         return [
             'todo_id' => (string)$this->todoId,
-            'user_id' => (string)$this->userId,
             'description' => (string)$this->todoDescription,
         ];
     }
 
     /**
      * @param array $data
+     * @param array $metadata
      * @return ShouldBeStored
      */
     public static function fromArray(array $data, array $metadata): ShouldBeStored
@@ -108,7 +90,6 @@ final class TodoAdded extends ShouldBeStored
         return new self(
             TodoId::createFromString($data['todo_id']),
             TodoDescription::createFromString($data['description']),
-            UserId::createFromString($data['user_id']),
             $metadata
         );
     }

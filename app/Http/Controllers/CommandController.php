@@ -16,6 +16,6 @@ class CommandController extends Controller
      */
     public function index(Request $request): Response
     {
-        return response()->json(['success']);
+        return response()->json(['success' => true]);
     }
 }

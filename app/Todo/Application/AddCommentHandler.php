@@ -6,9 +6,8 @@ namespace App\Todo\Application;
 
 use App\Exceptions\DomainInvalidArgumentException;
 use App\Todo\Domain\Repository\TodoRepository;
-use App\Todo\Domain\Todo;
 
-final class AddTodoHandler
+final class AddCommentHandler
 {
     /**
      * @var TodoRepository
@@ -24,21 +23,17 @@ final class AddTodoHandler
     }
 
     /**
-     * @param AddTodo $addTodo
+     * @param AddComment $addComment
      */
-    public function handle(AddTodo $addTodo): void
+    public function handle(AddComment $addComment): void
     {
-        if ($this->todoRepository->get($addTodo->todoId())) {
+        if (null === ($todo = $this->todoRepository->get($addComment->todoId()))) {
             throw new DomainInvalidArgumentException(
-                sprintf('Todo with id %s already exist!', (string)$addTodo->todoId())
+                sprintf('The todo with id %s does not exist!', (string)$addComment->todoId())
             );
         }
         $this->todoRepository->save(
-            Todo::add(
-                $addTodo->todoId(),
-                $addTodo->todoDescription(),
-                $addTodo->userId(),
-            )
+            $todo->addComment($addComment->comment())
         );
     }
 }

@@ -9,7 +9,7 @@ use App\Todo\Domain\TodoId;
 use App\User\Domain\UserId;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-final class AddTodo
+final class UpdateTodo
 {
     use Dispatchable;
 
@@ -24,11 +24,6 @@ final class AddTodo
     private TodoDescription $todoDescription;
 
     /**
-     * @var UserId
-     */
-    private UserId $userId;
-
-    /**
      * @param array $payload
      * @return static
      */
@@ -38,7 +33,6 @@ final class AddTodo
         return new self(
             TodoId::createFromString($payload['todo_id']),
             TodoDescription::createFromString($payload['todo_description']),
-            UserId::createFromString($payload['user_id']),
         );
     }
 
@@ -50,11 +44,9 @@ final class AddTodo
     private function __construct(
         TodoId $todoId,
         TodoDescription $todoDescription,
-        UserId $userId
     ) {
         $this->todoId = $todoId;
         $this->todoDescription = $todoDescription;
-        $this->userId = $userId;
     }
 
     /**
@@ -74,21 +66,12 @@ final class AddTodo
     }
 
     /**
-     * @return UserId
-     */
-    public function userId(): UserId
-    {
-        return $this->userId;
-    }
-
-    /**
      * @return string[]
      */
     public static function validation(): array
     {
         return [
             'todo_id' => 'required|uuid',
-            'user_id' => 'required|uuid',
             'todo_description' => 'required|string'
         ];
     }

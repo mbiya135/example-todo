@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Todo\Application;
 
-use App\Todo\Domain\TodoDescription;
+use App\Todo\Domain\Comment;
 use App\Todo\Domain\TodoId;
 use App\User\Domain\UserId;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-final class AddTodo
+final class AddComment
 {
     use Dispatchable;
 
@@ -19,14 +19,9 @@ final class AddTodo
     private TodoId $todoId;
 
     /**
-     * @var TodoDescription
+     * @var Comment
      */
-    private TodoDescription $todoDescription;
-
-    /**
-     * @var UserId
-     */
-    private UserId $userId;
+    private Comment $comment;
 
     /**
      * @param array $payload
@@ -37,24 +32,24 @@ final class AddTodo
     ): self {
         return new self(
             TodoId::createFromString($payload['todo_id']),
-            TodoDescription::createFromString($payload['todo_description']),
-            UserId::createFromString($payload['user_id']),
+            Comment::from(
+                0,
+                $payload['comment'],
+                UserId::createFromString($payload['user_id'])
+            )
         );
     }
 
     /**
      * @param TodoId $todoId
-     * @param TodoDescription $todoDescription
-     * @param UserId $userId
+     * @param Comment $comment
      */
     private function __construct(
         TodoId $todoId,
-        TodoDescription $todoDescription,
-        UserId $userId
+        Comment $comment
     ) {
         $this->todoId = $todoId;
-        $this->todoDescription = $todoDescription;
-        $this->userId = $userId;
+        $this->comment = $comment;
     }
 
     /**
@@ -66,20 +61,13 @@ final class AddTodo
     }
 
     /**
-     * @return TodoDescription
+     * @return Comment
      */
-    public function todoDescription(): TodoDescription
+    public function comment(): Comment
     {
-        return $this->todoDescription;
+        return $this->comment;
     }
 
-    /**
-     * @return UserId
-     */
-    public function userId(): UserId
-    {
-        return $this->userId;
-    }
 
     /**
      * @return string[]
@@ -89,7 +77,7 @@ final class AddTodo
         return [
             'todo_id' => 'required|uuid',
             'user_id' => 'required|uuid',
-            'todo_description' => 'required|string'
+            'comment' => 'required|string'
         ];
     }
 }

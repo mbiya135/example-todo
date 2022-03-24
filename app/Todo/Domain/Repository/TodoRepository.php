@@ -11,9 +11,9 @@ interface TodoRepository
 {
     /**
      * @param TodoId $todoId
-     * @return Todo
+     * @return Todo|null
      */
-    public function get(TodoId $todoId): Todo;
+    public function get(TodoId $todoId): ?Todo;
 
     /**
      * @param Todo $todo

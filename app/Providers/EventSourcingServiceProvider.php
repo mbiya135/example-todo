@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Projectors\TodoProjector;
 use App\Todo\Application\AddComment;
 use App\Todo\Application\AddCommentHandler;
 use App\Todo\Application\AddTodo;
@@ -10,17 +11,17 @@ use App\Todo\Application\UpdateTodo;
 use App\Todo\Application\UpdateTodoHandler;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\ServiceProvider;
+use Spatie\EventSourcing\Facades\Projectionist;
 
-class BusServiceProvider extends ServiceProvider
+class EventSourcingServiceProvider extends ServiceProvider
 {
 
-    public function boot()
+    public function register()
     {
-        Bus::map(
+        // you can also add multiple projectors in one go
+        Projectionist::addProjectors(
             [
-                AddTodo::class => AddTodoHandler::class,
-                UpdateTodo::class => UpdateTodoHandler::class,
-                AddComment::class => AddCommentHandler::class,
+                TodoProjector::class,
             ]
         );
     }

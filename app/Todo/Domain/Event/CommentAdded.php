@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace App\Todo\Domain\Event;
 
-use App\Todo\Domain\TodoDescription;
+use App\EventSourcing\ShouldBeStored;
+use App\Todo\Domain\Comment;
 use App\Todo\Domain\TodoId;
 use App\User\Domain\UserId;
-use App\EventSourcing\ShouldBeStored;
-use JetBrains\PhpStorm\ArrayShape;
 
-final class TodoAdded extends ShouldBeStored
+final class CommentAdded extends ShouldBeStored
 {
     /**
      * @var TodoId
@@ -18,48 +17,37 @@ final class TodoAdded extends ShouldBeStored
     private TodoId $todoId;
 
     /**
-     * @var TodoDescription
+     * @var Comment
      */
-    private TodoDescription $todoDescription;
-
-    /**
-     * @var UserId
-     */
-    private UserId $userId;
+    private Comment $comment;
 
     /**
      * @param TodoId $todoId
-     * @param TodoDescription $todoDescription
-     * @param UserId $userId
+     * @param Comment $comment
      * @return static
      */
     public static function createFrom(
         TodoId $todoId,
-        TodoDescription $todoDescription,
-        UserId $userId
+        Comment $comment,
     ): self {
         return new self(
             $todoId,
-            $todoDescription,
-            $userId
+            $comment
         );
     }
 
     /**
      * @param TodoId $todoId
-     * @param TodoDescription $todoDescription
-     * @param UserId $userId
+     * @param Comment $comment
      * @param array|null $metadata
      */
     private function __construct(
         TodoId $todoId,
-        TodoDescription $todoDescription,
-        UserId $userId,
+        Comment $comment,
         ?array $metadata = []
     ) {
         $this->todoId = $todoId;
-        $this->todoDescription = $todoDescription;
-        $this->userId = $userId;
+        $this->comment = $comment;
         $this->metaData = $metadata;
     }
 
@@ -72,19 +60,11 @@ final class TodoAdded extends ShouldBeStored
     }
 
     /**
-     * @return TodoDescription
+     * @return Comment
      */
-    public function todoDescription(): TodoDescription
+    public function comment(): Comment
     {
-        return $this->todoDescription;
-    }
-
-    /**
-     * @return UserId
-     */
-    public function userId(): UserId
-    {
-        return $this->userId;
+        return $this->comment;
     }
 
     /**
@@ -94,21 +74,26 @@ final class TodoAdded extends ShouldBeStored
     {
         return [
             'todo_id' => (string)$this->todoId,
-            'user_id' => (string)$this->userId,
-            'description' => (string)$this->todoDescription,
+            'comment_id' => $this->comment->commentId(),
+            'user_id' => (string)$this->comment->userId(),
+            'comment' => $this->comment->comment(),
         ];
     }
 
     /**
      * @param array $data
+     * @param array $metadata
      * @return ShouldBeStored
      */
     public static function fromArray(array $data, array $metadata): ShouldBeStored
     {
         return new self(
             TodoId::createFromString($data['todo_id']),
-            TodoDescription::createFromString($data['description']),
-            UserId::createFromString($data['user_id']),
+            Comment::from(
+                $data['comment_id'],
+                $data['comment'],
+                UserId::createFromString($data['user_id'])
+            ),
             $metadata
         );
     }

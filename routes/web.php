@@ -1,6 +1,8 @@
 <?php
 
+use App\Todo\Application\AddComment;
 use App\Todo\Application\AddTodo;
+use App\Todo\Application\UpdateTodo;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +24,23 @@ Route::post(
     'todo',
     'App\Http\Controllers\CommandController@index'
 )->middleware(
-    'command-dispatch:' . AddTodo::class,
+    'command.dispatch:' . AddTodo::class,
 );
-Route::get('todo', 'App\Http\Controllers\AddTodoController@index');
+
+Route::put(
+    'todo',
+    'App\Http\Controllers\CommandController@index'
+)->middleware(
+    'command.dispatch:' . UpdateTodo::class,
+);
+
+Route::put(
+    'todo/comment',
+    'App\Http\Controllers\CommandController@index'
+)->middleware(
+    'command.dispatch:' . AddComment::class,
+);
+
+
+Route::get('todo', 'App\Http\Controllers\CommandController@index');
+//->parameter('commande_name', 'test');
