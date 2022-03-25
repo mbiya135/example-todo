@@ -42,6 +42,14 @@ final class TodoDeadline
     }
 
     /**
+     * @return DateTimeImmutable
+     */
+    public function dateTime(): DateTimeImmutable
+    {
+        return $this->deadline;
+    }
+
+    /**
      * @param TodoDeadline $deadline
      * @return bool
      */

@@ -76,7 +76,7 @@ final class AddComment
     {
         return [
             'todo_id' => 'required|uuid',
-            'user_id' => 'required|uuid',
+            'user_id' => 'required|uuid|exists:users,uuid',
             'comment' => 'required|string'
         ];
     }

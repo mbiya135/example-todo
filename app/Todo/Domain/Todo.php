@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Todo\Domain;
 
 use App\Todo\Domain\Event\CommentAdded;
+use App\Todo\Domain\Event\DeadlineAdded;
 use App\Todo\Domain\Event\TodoAdded;
 use App\Todo\Domain\Event\TodoUpdated;
 use App\Todo\Domain\Exception\TodoDoneException;
@@ -41,6 +42,7 @@ final class Todo extends AggregateRoot
     private Collection $comments;
 
     /**
+     * @param TodoId $todoId
      * @param TodoDescription $todoDescription
      * @param UserId $userId
      * @return static
@@ -101,9 +103,10 @@ final class Todo extends AggregateRoot
 
     /**
      * @param UserId $userId
+     * @param TodoDeadline $deadline
      * @return $this
      */
-    public function addDeadline(UserId $userId): self
+    public function addDeadline(UserId $userId, TodoDeadline $deadline): self
     {
         // Verify user owned the Todo
         if (!$this->userId->sameAs($userId)) {
@@ -113,6 +116,12 @@ final class Todo extends AggregateRoot
         if ($this->todoStatus === TodoStatus::DONE) {
             throw TodoDoneException::alreadyDone($this->todoId);
         }
+        $this->recordThat(
+            DeadlineAdded::createFrom(
+                $this->todoId,
+                $deadline
+            )
+        );
         return $this;
     }
 

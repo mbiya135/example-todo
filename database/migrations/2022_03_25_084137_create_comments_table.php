@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      *
@@ -12,14 +13,14 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('todos', function (Blueprint $table) {
-            $table->uuid()->primary();
+        Schema::create('comments', function (Blueprint $table) {
+            $table->id();
+            $table->integer('comment_id');
             $table->string('description');
+            $table->uuid('todo_id');
             $table->uuid('user_id');
-            $table->string('status');
-            $table->dateTime('deadline')->nullable();
             $table->dateTime('created_at')->nullable();
-            $table->foreign('user_id')->references('uuid')->on('users');
+            $table->foreign('todo_id')->references('uuid')->on('todos');
         });
     }
 
@@ -30,6 +31,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        //   Schema::dropIfExists('todos');
+        Schema::dropIfExists('comments');
     }
 };

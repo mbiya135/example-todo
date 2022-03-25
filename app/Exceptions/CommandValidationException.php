@@ -33,6 +33,17 @@ final class CommandValidationException extends \InvalidArgumentException
     }
 
     /**
+     * @param array $errors
+     * @return static
+     */
+    public static function invalidRequestData(array $errors): self
+    {
+        $exception = new self('Invalid request data!');
+        $exception->errors = $errors;
+        return $exception;
+    }
+
+    /**
      * @return array
      */
     public function errors(): array

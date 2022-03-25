@@ -1,8 +1,10 @@
 <?php
 
 use App\Todo\Application\AddComment;
+use App\Todo\Application\AddDeadline;
 use App\Todo\Application\AddTodo;
 use App\Todo\Application\UpdateTodo;
+use App\User\Application\AddUser;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,26 +23,39 @@ Route::get('/', function () {
 });
 
 Route::post(
-    'todo',
+    '/api/todo',
     'App\Http\Controllers\CommandController@index'
 )->middleware(
-    'command.dispatch:' . AddTodo::class,
+    ['auth:api','command.dispatch:' . AddTodo::class,]
 );
 
 Route::put(
-    'todo',
+    '/api/todo',
     'App\Http\Controllers\CommandController@index'
 )->middleware(
-    'command.dispatch:' . UpdateTodo::class,
+    ['auth:api', 'command.dispatch:' . UpdateTodo::class,]
 );
 
-Route::put(
-    'todo/comment',
+Route::post(
+    '/api/todo/comment',
     'App\Http\Controllers\CommandController@index'
 )->middleware(
     'command.dispatch:' . AddComment::class,
 );
 
+Route::post(
+    '/api/todo/deadline',
+    'App\Http\Controllers\CommandController@index'
+)->middleware(
+    'command.dispatch:' . AddDeadline::class,
+);
 
-Route::get('todo', 'App\Http\Controllers\CommandController@index');
-//->parameter('commande_name', 'test');
+Route::post(
+    '/api/user',
+    'App\Http\Controllers\CommandController@index'
+)->middleware(
+    'command.dispatch:' . AddUser::class,
+);
+
+
+Route::post('/api/login', 'App\Http\Controllers\Auth\AuthController@login');

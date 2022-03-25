@@ -35,20 +35,24 @@ class DispatchCommand
             throw new RuntimeException(sprintf('The method "validation" does not exist in command %s!', $commandName));
         }
 
+        // Fill "user_id" field with connected user uuid if the field is empty
+        $data = $request->json()->all();
+        $data['user_id'] = $data['user_id'] ?? (auth()->check() ? auth()->user()->uuid : null);
+
         //Validate command
         $validator = Validator::make(
-            $request->json()->all(),
+            $data,
             $commandName::validation()
         );
-
         if ($validator->fails()) {
             throw CommandValidationException::invalidCommand($commandName, $validator->errors()->toArray());
         }
 
+
         // Dispatch command
         Bus::dispatch(
             $commandName::fromPayload(
-                $request->json()->all()
+                $data
             )
         );
 
