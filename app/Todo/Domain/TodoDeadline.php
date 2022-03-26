@@ -50,6 +50,14 @@ final class TodoDeadline
     }
 
     /**
+     * @return static
+     */
+    public static function now(): self
+    {
+        return new self(new DateTimeImmutable());
+    }
+
+    /**
      * @param TodoDeadline $deadline
      * @return bool
      */

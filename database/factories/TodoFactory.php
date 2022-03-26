@@ -26,5 +26,4 @@ class TodoFactory extends Factory
             'created_at' => $this->faker->text,
         ];
     }
-
 }

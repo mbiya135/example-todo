@@ -83,9 +83,9 @@ final class CommentAdded extends ShouldBeStored
     /**
      * @param array $data
      * @param array $metadata
-     * @return ShouldBeStored
+     * @return ShouldBeStored|CommentAdded
      */
-    public static function fromArray(array $data, array $metadata): ShouldBeStored
+    public static function fromArray(array $data, array $metadata): ShouldBeStored|CommentAdded
     {
         return new self(
             TodoId::createFromString($data['todo_id']),

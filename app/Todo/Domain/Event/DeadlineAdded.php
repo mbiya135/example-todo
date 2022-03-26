@@ -81,14 +81,14 @@ final class DeadlineAdded extends ShouldBeStored
     /**
      * @param array $data
      * @param array $metadata
-     * @return ShouldBeStored
+     * @return ShouldBeStored|DeadlineAdded
      * @throws Exception
      */
-    public static function fromArray(array $data, array $metadata): ShouldBeStored
+    public static function fromArray(array $data, array $metadata): ShouldBeStored|DeadlineAdded
     {
         return new self(
             TodoId::createFromString($data['todo_id']),
-            TodoDeadline::fromString($data['todo_id']),
+            TodoDeadline::fromString($data['deadline']),
             $metadata
         );
     }

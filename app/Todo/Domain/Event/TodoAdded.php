@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Todo\Domain\Event;
 
+use App\EventSourcing\ShouldBeStored;
 use App\Todo\Domain\TodoDescription;
 use App\Todo\Domain\TodoId;
 use App\User\Domain\UserId;
-use App\EventSourcing\ShouldBeStored;
-use JetBrains\PhpStorm\ArrayShape;
 
 final class TodoAdded extends ShouldBeStored
 {
@@ -101,9 +100,9 @@ final class TodoAdded extends ShouldBeStored
 
     /**
      * @param array $data
-     * @return ShouldBeStored
+     * @return ShouldBeStored|TodoAdded
      */
-    public static function fromArray(array $data, array $metadata): ShouldBeStored
+    public static function fromArray(array $data, array $metadata): ShouldBeStored|TodoAdded
     {
         return new self(
             TodoId::createFromString($data['todo_id']),

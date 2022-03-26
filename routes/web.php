@@ -26,7 +26,7 @@ Route::post(
     '/api/todo',
     'App\Http\Controllers\CommandController@index'
 )->middleware(
-    ['auth:api','command.dispatch:' . AddTodo::class,]
+    ['auth:api', 'command.dispatch:' . AddTodo::class,]
 );
 
 Route::put(
@@ -59,3 +59,8 @@ Route::post(
 
 
 Route::post('/api/login', 'App\Http\Controllers\Auth\AuthController@login');
+Route::get(
+    '/api/todos',
+    'App\Http\Controllers\Todo\TodoListController@list'
+)
+    ->middleware('auth:api');

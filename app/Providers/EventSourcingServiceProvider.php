@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Projectors\TodoProjector;
 use App\Projectors\UserProjector;
+use App\Reactors\TodoAddedReactor;
 use Illuminate\Support\ServiceProvider;
 use Spatie\EventSourcing\Facades\Projectionist;
 
@@ -17,6 +18,11 @@ class EventSourcingServiceProvider extends ServiceProvider
             [
                 TodoProjector::class,
                 UserProjector::class,
+            ]
+        );
+        Projectionist::addReactor(
+            [
+                TodoAddedReactor::class
             ]
         );
     }

@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\User\Infrastructure\Repository;
 
+use App\EventSourcing\EventStoreRepository;
 use App\User\Domain\Repository\UserRepository as TodoRepositoryDomain;
 use App\User\Domain\User;
 use App\User\Domain\UserId;
 
-final class UserRepository implements TodoRepositoryDomain
+final class UserRepository extends EventStoreRepository implements TodoRepositoryDomain
 {
     /**
      * @param UserId $userId
@@ -16,7 +17,7 @@ final class UserRepository implements TodoRepositoryDomain
      */
     public function get(UserId $userId): ?User
     {
-        $user = User::retrieve((string)$userId);
+        $user = $this->reconstituteFromDatabaseEvents(User::retrieve((string)$userId));
         return $user->getAppliedEvents() ? $user : null;
     }
 
@@ -25,6 +26,6 @@ final class UserRepository implements TodoRepositoryDomain
      */
     public function save(User $user): void
     {
-        $user->persist();
+        $this->persist($user);
     }
 }

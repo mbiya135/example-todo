@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Todo\Domain;
 
-enum TodoStatus : string
+// @codingStandardsIgnoreStart
+enum TodoStatus: string
 {
     case OPEN = 'open';
     case IN_PROGRESS = 'in_progress';
@@ -15,8 +16,7 @@ enum TodoStatus : string
      */
     public function status(): string
     {
-        return match($this)
-        {
+        return match ($this) {
             self::OPEN => 'open',
             self::IN_PROGRESS => 'in_progress',
             self::DONE => 'done',

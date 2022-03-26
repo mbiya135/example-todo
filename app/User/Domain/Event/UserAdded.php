@@ -122,9 +122,9 @@ final class UserAdded extends ShouldBeStored
     /**
      * @param array $data
      * @param array $metadata
-     * @return ShouldBeStored
+     * @return ShouldBeStored|UserAdded
      */
-    public static function fromArray(array $data, array $metadata): ShouldBeStored
+    public static function fromArray(array $data, array $metadata): ShouldBeStored|UserAdded
     {
         return new self(
             UserId::createFromString($data['user_id']),

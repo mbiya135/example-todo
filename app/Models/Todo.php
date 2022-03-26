@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @method static create(array $array):Todo
- * @method static where(string $string, string $uuid)
  */
 final class Todo extends Model
 {
