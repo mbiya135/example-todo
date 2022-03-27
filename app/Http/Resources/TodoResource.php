@@ -25,6 +25,7 @@ class TodoResource extends JsonResource
                 'status' => $this->status,
                 'created_at' => $this->created_at,
                 'deadline' => $this->deadline,
+                'comments' => $this->comments,
             ]
         );
     }
