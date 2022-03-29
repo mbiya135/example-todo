@@ -59,8 +59,7 @@ Route::post(
 
 
 Route::post('/api/login', 'App\Http\Controllers\Auth\AuthController@login');
-Route::get(
-    '/api/todos',
-    'App\Http\Controllers\Todo\TodoListController@list'
-)
-    ->middleware('auth:api');
+Route::post(
+    '/api/email-delivered',
+    'App\Http\Controllers\Email\DeliveredWebHookController@index'
+);
