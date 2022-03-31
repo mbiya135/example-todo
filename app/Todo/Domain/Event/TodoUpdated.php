@@ -4,23 +4,12 @@ declare(strict_types=1);
 
 namespace App\Todo\Domain\Event;
 
+use App\EventSourcing\ShouldBeStored;
 use App\Todo\Domain\TodoDescription;
 use App\Todo\Domain\TodoId;
-use App\User\Domain\UserId;
-use App\EventSourcing\ShouldBeStored;
-use JetBrains\PhpStorm\ArrayShape;
 
 final class TodoUpdated extends ShouldBeStored
 {
-    /**
-     * @var TodoId
-     */
-    public TodoId $todoId;
-
-    /**
-     * @var TodoDescription
-     */
-    public TodoDescription $todoDescription;
 
     /**
      * @param TodoId $todoId
@@ -43,12 +32,10 @@ final class TodoUpdated extends ShouldBeStored
      * @param array|null $metadata
      */
     private function __construct(
-        TodoId $todoId,
-        TodoDescription $todoDescription,
+        private TodoId $todoId,
+        private TodoDescription $todoDescription,
         ?array $metadata = []
     ) {
-        $this->todoId = $todoId;
-        $this->todoDescription = $todoDescription;
         $this->metaData = $metadata;
     }
 

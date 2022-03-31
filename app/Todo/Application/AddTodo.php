@@ -14,21 +14,6 @@ final class AddTodo
     use Dispatchable;
 
     /**
-     * @var TodoId
-     */
-    private TodoId $todoId;
-
-    /**
-     * @var TodoDescription
-     */
-    private TodoDescription $todoDescription;
-
-    /**
-     * @var UserId
-     */
-    private UserId $userId;
-
-    /**
      * @param array $payload
      * @return static
      */
@@ -48,13 +33,10 @@ final class AddTodo
      * @param UserId $userId
      */
     private function __construct(
-        TodoId $todoId,
-        TodoDescription $todoDescription,
-        UserId $userId
+        private TodoId $todoId,
+        private TodoDescription $todoDescription,
+        private UserId $userId
     ) {
-        $this->todoId = $todoId;
-        $this->todoDescription = $todoDescription;
-        $this->userId = $userId;
     }
 
     /**

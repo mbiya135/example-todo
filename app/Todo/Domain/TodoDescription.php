@@ -7,11 +7,6 @@ namespace App\Todo\Domain;
 final class TodoDescription
 {
     /**
-     * @var string
-     */
-    private string $description;
-
-    /**
      * @param string $description
      * @return static
      */
@@ -23,9 +18,8 @@ final class TodoDescription
     /**
      * @param string $description
      */
-    private function __construct(string $description)
+    private function __construct(private string $description)
     {
-        $this->description = $description;
     }
 
     /**

@@ -10,11 +10,6 @@ use Ramsey\Uuid\UuidInterface;
 final class UserId
 {
     /**
-     * @var UuidInterface
-     */
-    private UuidInterface $uuid;
-
-    /**
      * @param string $uuid
      * @return static
      */
@@ -26,9 +21,8 @@ final class UserId
     /**
      * @param UuidInterface $uuid
      */
-    private function __construct(UuidInterface $uuid)
+    private function __construct(private UuidInterface $uuid)
     {
-        $this->uuid = $uuid;
     }
 
     /**

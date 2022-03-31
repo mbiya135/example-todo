@@ -14,16 +14,6 @@ final class AddComment
     use Dispatchable;
 
     /**
-     * @var TodoId
-     */
-    private TodoId $todoId;
-
-    /**
-     * @var Comment
-     */
-    private Comment $comment;
-
-    /**
      * @param array $payload
      * @return static
      */
@@ -45,11 +35,9 @@ final class AddComment
      * @param Comment $comment
      */
     private function __construct(
-        TodoId $todoId,
-        Comment $comment
+        private TodoId $todoId,
+        private Comment $comment
     ) {
-        $this->todoId = $todoId;
-        $this->comment = $comment;
     }
 
     /**

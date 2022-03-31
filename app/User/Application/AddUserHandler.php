@@ -37,8 +37,8 @@ final class AddUserHandler
             User::add(
                 $addUser->userId(),
                 $addUser->userName(),
-                $addUser->email(),
-                $addUser->password(),
+                $addUser->userEmail(),
+                $addUser->userPassword(),
             )
         );
     }

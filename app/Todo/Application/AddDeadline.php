@@ -15,21 +15,6 @@ final class AddDeadline
     use Dispatchable;
 
     /**
-     * @var TodoId
-     */
-    private TodoId $todoId;
-
-    /**
-     * @var TodoDeadline
-     */
-    private TodoDeadline $deadline;
-
-    /**
-     * @var UserId
-     */
-    private UserId $userId;
-
-    /**
      * @param array $payload
      * @return static
      * @throws Exception
@@ -50,13 +35,10 @@ final class AddDeadline
      * @param UserId $userId
      */
     private function __construct(
-        TodoId $todoId,
-        TodoDeadline $deadline,
-        UserId $userId
+        private TodoId $todoId,
+        private TodoDeadline $deadline,
+        private UserId $userId
     ) {
-        $this->todoId = $todoId;
-        $this->deadline = $deadline;
-        $this->userId = $userId;
     }
 
     /**

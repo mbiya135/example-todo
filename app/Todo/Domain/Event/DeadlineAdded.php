@@ -11,15 +11,6 @@ use Exception;
 
 final class DeadlineAdded extends ShouldBeStored
 {
-    /**
-     * @var TodoId
-     */
-    private TodoId $todoId;
-
-    /**
-     * @var TodoDeadline
-     */
-    private TodoDeadline $deadline;
 
     /**
      * @param TodoId $todoId
@@ -42,12 +33,10 @@ final class DeadlineAdded extends ShouldBeStored
      * @param array|null $metadata
      */
     private function __construct(
-        TodoId $todoId,
-        TodoDeadline $deadline,
+        private TodoId $todoId,
+        private TodoDeadline $deadline,
         ?array $metadata = []
     ) {
-        $this->todoId = $todoId;
-        $this->deadline = $deadline;
         $this->metaData = $metadata;
     }
 

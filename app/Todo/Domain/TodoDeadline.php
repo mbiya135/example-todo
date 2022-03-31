@@ -11,11 +11,6 @@ use Exception;
 final class TodoDeadline
 {
     /**
-     * @var DateTimeImmutable
-     */
-    private DateTimeImmutable $deadline;
-
-    /**
      * @param string $deadline
      * @return static
      * @throws Exception
@@ -28,9 +23,8 @@ final class TodoDeadline
     /**
      * @param DateTimeImmutable $deadline
      */
-    private function __construct(DateTimeImmutable $deadline)
+    private function __construct(private DateTimeImmutable $deadline)
     {
-        $this->deadline = $deadline;
     }
 
     /**

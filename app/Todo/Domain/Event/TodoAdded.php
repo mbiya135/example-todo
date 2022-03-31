@@ -13,21 +13,6 @@ use JetBrains\PhpStorm\ArrayShape;
 final class TodoAdded extends ShouldBeStored
 {
     /**
-     * @var TodoId
-     */
-    private TodoId $todoId;
-
-    /**
-     * @var TodoDescription
-     */
-    private TodoDescription $todoDescription;
-
-    /**
-     * @var UserId
-     */
-    private UserId $userId;
-
-    /**
      * @param TodoId $todoId
      * @param TodoDescription $todoDescription
      * @param UserId $userId
@@ -52,14 +37,11 @@ final class TodoAdded extends ShouldBeStored
      * @param array|null $metadata
      */
     private function __construct(
-        TodoId $todoId,
-        TodoDescription $todoDescription,
-        UserId $userId,
+        private TodoId $todoId,
+        private TodoDescription $todoDescription,
+        private UserId $userId,
         ?array $metadata = []
     ) {
-        $this->todoId = $todoId;
-        $this->todoDescription = $todoDescription;
-        $this->userId = $userId;
         $this->metaData = $metadata;
     }
 

@@ -10,11 +10,6 @@ use Ramsey\Uuid\UuidInterface;
 final class TodoId
 {
     /**
-     * @var UuidInterface
-     */
-    private UuidInterface $uuid;
-
-    /**
      * @param string $uuid
      * @return static
      */
@@ -34,9 +29,8 @@ final class TodoId
     /**
      * @param UuidInterface $uuid
      */
-    private function __construct(UuidInterface $uuid)
+    private function __construct(private UuidInterface $uuid)
     {
-        $this->uuid = $uuid;
     }
 
     /**

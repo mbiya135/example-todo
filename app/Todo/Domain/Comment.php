@@ -9,21 +9,6 @@ use App\User\Domain\UserId;
 final class Comment
 {
     /**
-     * @var int
-     */
-    private int $commentId;
-
-    /**
-     * @var string
-     */
-    private string $comment;
-
-    /**
-     * @var UserId
-     */
-    private UserId $userId;
-
-    /**
      * @param int $commentId
      * @param string $comment
      * @param UserId $userId
@@ -39,11 +24,11 @@ final class Comment
      * @param string $comment
      * @param UserId $userId
      */
-    private function __construct(int $commentId, string $comment, UserId $userId)
-    {
-        $this->comment = $comment;
-        $this->userId = $userId;
-        $this->commentId = $commentId;
+    private function __construct(
+        private int $commentId,
+        private string $comment,
+        private UserId $userId
+    ) {
     }
 
     /**

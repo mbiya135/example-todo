@@ -7,11 +7,6 @@ namespace App\User\Domain;
 final class UserName
 {
     /**
-     * @var string
-     */
-    private string $name;
-
-    /**
      * @param string $name
      * @return static
      */
@@ -23,9 +18,8 @@ final class UserName
     /**
      * @param string $name
      */
-    private function __construct(string $name)
+    private function __construct(private string $name)
     {
-        $this->name = $name;
     }
 
     /**

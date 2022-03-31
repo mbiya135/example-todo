@@ -16,26 +16,6 @@ final class AddUser
     use Dispatchable;
 
     /**
-     * @var UserId
-     */
-    private UserId $userId;
-
-    /**
-     * @var UserName
-     */
-    private UserName $userName;
-
-    /**
-     * @var UserPassword
-     */
-    private UserPassword $password;
-
-    /**
-     * @var UserEmail
-     */
-    private UserEmail $email;
-
-    /**
      * @param array $payload
      * @return static
      */
@@ -57,15 +37,11 @@ final class AddUser
      * @param UserPassword $userPassword
      */
     private function __construct(
-        UserId $userId,
-        UserName $userName,
-        UserEmail $userEmail,
-        UserPassword $userPassword,
+        private UserId $userId,
+        private UserName $userName,
+        private UserEmail $userEmail,
+        private UserPassword $userPassword,
     ) {
-        $this->userId = $userId;
-        $this->userName = $userName;
-        $this->password = $userPassword;
-        $this->email = $userEmail;
     }
 
     /**
@@ -87,17 +63,17 @@ final class AddUser
     /**
      * @return UserPassword
      */
-    public function password(): UserPassword
+    public function userPassword(): UserPassword
     {
-        return $this->password;
+        return $this->userPassword;
     }
 
     /**
      * @return UserEmail
      */
-    public function email(): UserEmail
+    public function userEmail(): UserEmail
     {
-        return $this->email;
+        return $this->userEmail;
     }
 
     /**

@@ -9,17 +9,12 @@ use App\Todo\Domain\Repository\TodoRepository;
 
 final class AddCommentHandler
 {
-    /**
-     * @var TodoRepository
-     */
-    private TodoRepository $todoRepository;
 
     /**
      * @param TodoRepository $todoRepository
      */
-    public function __construct(TodoRepository $todoRepository)
+    public function __construct(private TodoRepository $todoRepository)
     {
-        $this->todoRepository = $todoRepository;
     }
 
     /**

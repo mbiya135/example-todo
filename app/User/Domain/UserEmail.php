@@ -6,10 +6,6 @@ namespace App\User\Domain;
 
 final class UserEmail
 {
-    /**
-     * @var string
-     */
-    private string $userEmail;
 
     /**
      * @param string $userEmail
@@ -23,9 +19,8 @@ final class UserEmail
     /**
      * @param string $userEmail
      */
-    private function __construct(string $userEmail)
+    private function __construct(private string $userEmail)
     {
-        $this->userEmail = $userEmail;
     }
 
     /**

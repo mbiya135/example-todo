@@ -12,25 +12,6 @@ use App\User\Domain\UserPassword;
 
 final class UserAdded extends ShouldBeStored
 {
-    /**
-     * @var UserId
-     */
-    private UserId $userId;
-
-    /**
-     * @var UserName
-     */
-    private UserName $userName;
-
-    /**
-     * @var UserPassword
-     */
-    private UserPassword $userPassword;
-
-    /**
-     * @var UserEmail
-     */
-    private UserEmail $userEmail;
 
     /**
      * @param UserId $userId
@@ -61,16 +42,12 @@ final class UserAdded extends ShouldBeStored
      * @param array|null $metadata
      */
     private function __construct(
-        UserId $userId,
-        UserName $userName,
-        UserEmail $userEmail,
-        UserPassword $userPassword,
+        private UserId $userId,
+        private UserName $userName,
+        private UserEmail $userEmail,
+        private UserPassword $userPassword,
         ?array $metadata = []
     ) {
-        $this->userId = $userId;
-        $this->userName = $userName;
-        $this->userPassword = $userPassword;
-        $this->userEmail = $userEmail;
         $this->metaData = $metadata;
     }
 

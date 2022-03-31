@@ -12,16 +12,6 @@ use App\User\Domain\UserId;
 final class CommentAdded extends ShouldBeStored
 {
     /**
-     * @var TodoId
-     */
-    private TodoId $todoId;
-
-    /**
-     * @var Comment
-     */
-    private Comment $comment;
-
-    /**
      * @param TodoId $todoId
      * @param Comment $comment
      * @return static
@@ -42,12 +32,10 @@ final class CommentAdded extends ShouldBeStored
      * @param array|null $metadata
      */
     private function __construct(
-        TodoId $todoId,
-        Comment $comment,
+        private TodoId $todoId,
+        private Comment $comment,
         ?array $metadata = []
     ) {
-        $this->todoId = $todoId;
-        $this->comment = $comment;
         $this->metaData = $metadata;
     }
 

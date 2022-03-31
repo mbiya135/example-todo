@@ -11,16 +11,10 @@ use App\Todo\Domain\Todo;
 final class AddTodoHandler
 {
     /**
-     * @var TodoRepository
-     */
-    private TodoRepository $todoRepository;
-
-    /**
      * @param TodoRepository $todoRepository
      */
-    public function __construct(TodoRepository $todoRepository)
+    public function __construct(private TodoRepository $todoRepository)
     {
-        $this->todoRepository = $todoRepository;
     }
 
     /**

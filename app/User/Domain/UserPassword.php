@@ -6,10 +6,6 @@ namespace App\User\Domain;
 
 final class UserPassword
 {
-    /**
-     * @var string
-     */
-    private string $password;
 
     /**
      * @param string $password
@@ -23,9 +19,8 @@ final class UserPassword
     /**
      * @param string $password
      */
-    private function __construct(string $password)
+    private function __construct(private string $password)
     {
-        $this->password = $password;
     }
 
     /**
