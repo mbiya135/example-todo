@@ -6,7 +6,6 @@ namespace App\Todo\Application;
 
 use App\Todo\Domain\TodoDescription;
 use App\Todo\Domain\TodoId;
-use App\User\Domain\UserId;
 use Illuminate\Foundation\Bus\Dispatchable;
 
 final class UpdateTodo

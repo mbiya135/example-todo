@@ -12,6 +12,8 @@ use App\Todo\Application\UpdateTodo;
 use App\Todo\Application\UpdateTodoHandler;
 use App\User\Application\AddUser;
 use App\User\Application\AddUserHandler;
+use App\User\Application\AttacheTodo;
+use App\User\Application\AttacheTodoHandler;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\ServiceProvider;
 
@@ -28,6 +30,7 @@ class BusServiceProvider extends ServiceProvider
                 AddDeadline::class => AddDeadlineHandler::class,
                 // Use domain
                 AddUser::class => AddUserHandler::class,
+                AttacheTodo::class => AttacheTodoHandler::class,
             ]
         );
     }

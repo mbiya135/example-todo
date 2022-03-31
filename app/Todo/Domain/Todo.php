@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Todo\Domain;
 
+use App\EventSourcing\AggregateRoot;
 use App\Todo\Domain\Event\CommentAdded;
 use App\Todo\Domain\Event\DeadlineAdded;
 use App\Todo\Domain\Event\TodoAdded;
@@ -12,7 +13,6 @@ use App\Todo\Domain\Exception\TodoDoneException;
 use App\Todo\Domain\Exception\TodoNotBelongToUserException;
 use App\User\Domain\UserId;
 use Illuminate\Support\Collection;
-use Spatie\EventSourcing\AggregateRoots\AggregateRoot;
 
 final class Todo extends AggregateRoot
 {
@@ -57,7 +57,7 @@ final class Todo extends AggregateRoot
             ->loadUuid((string)$todoId)
             ->recordThat(
                 TodoAdded::createFrom(
-                    TodoId::createFromString($todo->uuid()),
+                    $todoId,
                     $todoDescription,
                     $userId
                 )
@@ -159,5 +159,13 @@ final class Todo extends AggregateRoot
     public function todoDescription(): TodoDescription
     {
         return $this->todoDescription;
+    }
+
+    /**
+     * @return string
+     */
+    public function aggregateId(): string
+    {
+        return (string)$this->todoId;
     }
 }
